@@ -1,0 +1,74 @@
+import Link from "next/link";
+import Image from "next/image";
+
+export default function Footer() {
+  return (
+    <footer className="border-t border-white/[0.06] bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <Image src="/logo.png" alt="RentCar" width={32} height={32} />
+              <span
+                className="text-lg font-bold tracking-tight"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                RENTCAR
+              </span>
+            </div>
+            <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
+              Noleggio auto premium in Svizzera. Qualità, trasparenza e servizio
+              personalizzato per ogni esigenza di mobilità.
+            </p>
+          </div>
+
+          {/* Links */}
+          <div>
+            <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase tracking-wider">
+              Navigazione
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/" className="text-sm text-gray-500 hover:text-white transition-colors duration-200">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/auto" className="text-sm text-gray-500 hover:text-white transition-colors duration-200">
+                  Le nostre auto
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="text-sm font-semibold text-gray-300 mb-4 uppercase tracking-wider">
+              Legale
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <span className="text-sm text-gray-500">
+                  Condizioni generali
+                </span>
+              </li>
+              <li>
+                <span className="text-sm text-gray-500">
+                  Privacy Policy
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="divider mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-gray-600">
+            © {new Date().getFullYear()} RentCar. Tutti i diritti riservati.
+          </p>
+          <p className="text-xs text-gray-600">Svizzera 🇨🇭</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

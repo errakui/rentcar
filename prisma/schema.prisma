@@ -1,0 +1,287 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── ADMIN USERS ─────────────────────────────────────────────
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(STAFF)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  activityLogs ActivityLog[]
+
+  @@map("admin_users")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+}
+
+// ─── CAR ─────────────────────────────────────────────────────
+model Car {
+  id            String        @id @default(uuid())
+  slug          String        @unique
+  brand         String
+  model         String
+  trim          String?
+  year          Int
+  category      CarCategory
+  transmission  Transmission
+  fuelType      FuelType
+  drivetrain    Drivetrain
+  seats         Int
+  doors         Int
+  luggage       Int
+  powerKw       Int?
+  powerHp       Int?
+  plateNumber   String?
+  internalId    String?
+  locationId    String?
+  location      Location?     @relation(fields: [locationId], references: [id])
+  minAge        Int           @default(21)
+  minLicenseYears Int         @default(1)
+  baseFranchise   Int?
+  kmPerDay      Int           @default(100)
+  baseInsurance Boolean       @default(true)
+  status        CarStatus     @default(ACTIVE)
+  coverImage    String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  images        CarImage[]
+  ratePlans     RatePlan[]
+  availability  Availability[]
+  leads         Lead[]
+
+  @@map("cars")
+}
+
+enum CarCategory {
+  CITY
+  SEDAN
+  SUV
+  LUXURY
+  VAN
+  SPORTS
+  CONVERTIBLE
+  WAGON
+}
+
+enum Transmission {
+  AUTOMATIC
+  MANUAL
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum Drivetrain {
+  FWD
+  RWD
+  AWD
+}
+
+enum CarStatus {
+  ACTIVE
+  UNAVAILABLE
+  MAINTENANCE
+}
+
+// ─── CAR IMAGES ──────────────────────────────────────────────
+model CarImage {
+  id        String   @id @default(uuid())
+  carId     String
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  url       String
+  altText   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@map("car_images")
+}
+
+// ─── RATE PLANS ──────────────────────────────────────────────
+model RatePlan {
+  id              String   @id @default(uuid())
+  carId           String
+  car             Car      @relation(fields: [carId], references: [id], onDelete: Cascade)
+  dailyPrice      Float
+  weeklyPrice     Float?
+  monthlyPrice    Float?
+  discount3Days   Float?   // percentage discount for 3+ days
+  discount7Days   Float?   // percentage discount for 7+ days
+  discount30Days  Float?   // percentage discount for 30+ days
+  seasonStart     DateTime?
+  seasonEnd       DateTime?
+  seasonMultiplier Float?  // e.g., 1.2 for 20% more
+  weekendPricing  Float?   // override for weekend days
+  kmIncluded      Int      @default(100)
+  extraKmPrice    Float    @default(0.50)
+  unlimitedKm     Boolean  @default(false)
+  deposit         Float    @default(1000)
+  depositNotes    String?
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("rate_plans")
+}
+
+// ─── EXTRAS ──────────────────────────────────────────────────
+model Extra {
+  id              String      @id @default(uuid())
+  name            String
+  description     String?
+  priceType       PriceType   @default(PER_DAY)
+  price           Float
+  maxQuantity     Int         @default(1)
+  compatibleCategories String? // comma-separated categories, null = all
+  active          Boolean     @default(true)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("extras")
+}
+
+enum PriceType {
+  ONE_TIME
+  PER_DAY
+}
+
+// ─── INSURANCE PLANS ─────────────────────────────────────────
+model InsurancePlan {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  pricePerDay Float
+  franchise   Int      // franchise amount in CHF
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("insurance_plans")
+}
+
+// ─── LOCATIONS ───────────────────────────────────────────────
+model Location {
+  id              String   @id @default(uuid())
+  name            String
+  address         String
+  city            String
+  canton          String
+  openingHours    String?  // JSON string
+  deliveryFee     Float?
+  pickupFee       Float?
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  cars            Car[]
+
+  @@map("locations")
+}
+
+// ─── AVAILABILITY / BLACKOUTS ────────────────────────────────
+model Availability {
+  id        String            @id @default(uuid())
+  carId     String
+  car       Car               @relation(fields: [carId], references: [id], onDelete: Cascade)
+  startDate DateTime
+  endDate   DateTime
+  reason    AvailabilityReason @default(MAINTENANCE)
+  note      String?
+  createdAt DateTime          @default(now())
+
+  @@map("availability_blocks")
+}
+
+enum AvailabilityReason {
+  MAINTENANCE
+  RESERVED
+  OTHER
+}
+
+// ─── LEAD / BOOKING REQUEST ─────────────────────────────────
+model Lead {
+  id              String     @id @default(uuid())
+  carId           String
+  car             Car        @relation(fields: [carId], references: [id])
+  customerName    String
+  customerPhone   String
+  customerEmail   String?
+  pickupDate      DateTime
+  returnDate      DateTime
+  pickupLocation  String
+  returnLocation  String?
+  quoteSnapshot   Json       // full quote breakdown
+  totalEstimate   Float
+  extras          String?    // JSON string of selected extras
+  insurance       String?    // insurance plan chosen
+  status          LeadStatus @default(NEW)
+  internalNotes   String?
+  source          String     @default("web")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("leads")
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CONFIRMED
+  LOST
+}
+
+// ─── SITE SETTINGS ──────────────────────────────────────────
+model Setting {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String
+  type  String @default("string") // string, number, boolean, json
+
+  @@map("settings")
+}
+
+// ─── CONTENT PAGES ──────────────────────────────────────────
+model ContentPage {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  title     String
+  content   String   @db.Text
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("content_pages")
+}
+
+// ─── ACTIVITY LOG ───────────────────────────────────────────
+model ActivityLog {
+  id          String    @id @default(uuid())
+  userId      String
+  user        AdminUser @relation(fields: [userId], references: [id])
+  action      String
+  entity      String
+  entityId    String?
+  details     String?   @db.Text
+  createdAt   DateTime  @default(now())
+
+  @@map("activity_logs")
+}
