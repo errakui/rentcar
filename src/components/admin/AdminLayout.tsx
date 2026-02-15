@@ -93,9 +93,9 @@ export default function AdminLayout({
             <Image
               src="/logo.png"
               alt="LMG RentCar"
-              width={130}
-              height={30}
-              className="h-6 w-auto brightness-0 invert opacity-90"
+              width={980}
+              height={76}
+              className="h-5 w-auto"
             />
             <span className="badge text-[9px]">Admin</span>
           </div>

@@ -17,9 +17,9 @@ export default function Header() {
             <Image
               src="/logo.png"
               alt="LMG RentCar"
-              width={280}
-              height={60}
-              className="h-10 md:h-14 w-auto brightness-0 invert transition-opacity duration-200 group-hover:opacity-80"
+              width={980}
+              height={76}
+              className="h-8 md:h-11 w-auto transition-opacity duration-200 group-hover:opacity-80"
               priority
             />
           </Link>

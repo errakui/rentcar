@@ -46,9 +46,9 @@ export default function AdminLoginPage() {
           <Image
             src="/logo.png"
             alt="LMG RentCar"
-            width={180}
-            height={40}
-            className="h-10 w-auto mx-auto mb-6 brightness-0 invert opacity-90"
+            width={980}
+            height={76}
+            className="h-10 w-auto mx-auto mb-6"
           />
           <h1
             className="text-2xl font-bold tracking-tight"
