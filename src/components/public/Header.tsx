@@ -19,7 +19,7 @@ export default function Header() {
               alt="LMG RentCar"
               width={980}
               height={76}
-              className="h-8 md:h-11 w-auto transition-opacity duration-200 group-hover:opacity-80"
+              className="h-4 md:h-[22px] w-auto transition-opacity duration-200 group-hover:opacity-80"
               priority
             />
           </Link>

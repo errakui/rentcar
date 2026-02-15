@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
             alt="LMG RentCar"
             width={980}
             height={76}
-            className="h-10 w-auto mx-auto mb-6"
+            className="h-5 w-auto mx-auto mb-6"
           />
           <h1
             className="text-2xl font-bold tracking-tight"

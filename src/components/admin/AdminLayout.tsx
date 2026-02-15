@@ -95,7 +95,7 @@ export default function AdminLayout({
               alt="LMG RentCar"
               width={980}
               height={76}
-              className="h-5 w-auto"
+              className="h-[10px] w-auto"
             />
             <span className="badge text-[9px]">Admin</span>
           </div>

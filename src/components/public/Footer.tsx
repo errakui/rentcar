@@ -14,7 +14,7 @@ export default function Footer() {
                 alt="LMG RentCar"
                 width={980}
                 height={76}
-                className="h-7 w-auto opacity-50"
+                className="h-[14px] w-auto opacity-50"
               />
             </div>
             <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
