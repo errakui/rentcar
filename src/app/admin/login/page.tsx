@@ -45,10 +45,10 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <Image
             src="/logo.png"
-            alt="RentCar"
-            width={48}
-            height={48}
-            className="mx-auto mb-4"
+            alt="LMG RentCar"
+            width={180}
+            height={40}
+            className="h-10 w-auto mx-auto mb-6 brightness-0 invert opacity-90"
           />
           <h1
             className="text-2xl font-bold tracking-tight"

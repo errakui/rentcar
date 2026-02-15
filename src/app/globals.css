@@ -14,8 +14,8 @@
   --color-destructive: #ef4444;
   --color-success: #22c55e;
   --color-warning: #eab308;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-heading: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-sans: "Outfit", system-ui, -apple-system, sans-serif;
+  --font-heading: "Syne", "Outfit", system-ui, sans-serif;
 }
 
 body {

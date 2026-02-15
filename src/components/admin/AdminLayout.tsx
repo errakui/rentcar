@@ -89,15 +89,15 @@ export default function AdminLayout({
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="h-16 flex items-center gap-3 px-5 border-b border-white/[0.06]">
-            <Image src="/logo.png" alt="RentCar" width={28} height={28} />
-            <span
-              className="text-base font-bold tracking-tight"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              RENTCAR
-            </span>
-            <span className="badge text-[9px] ml-auto">Admin</span>
+          <div className="h-16 flex items-center justify-between px-5 border-b border-white/[0.06]">
+            <Image
+              src="/logo.png"
+              alt="LMG RentCar"
+              width={130}
+              height={30}
+              className="h-6 w-auto brightness-0 invert opacity-90"
+            />
+            <span className="badge text-[9px]">Admin</span>
           </div>
 
           {/* Nav */}

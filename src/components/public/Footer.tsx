@@ -8,18 +8,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <Image src="/logo.png" alt="RentCar" width={32} height={32} />
-              <span
-                className="text-lg font-bold tracking-tight"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                RENTCAR
-              </span>
+            <div className="mb-4">
+              <Image
+                src="/logo.png"
+                alt="LMG RentCar"
+                width={150}
+                height={34}
+                className="h-7 w-auto brightness-0 invert opacity-70"
+              />
             </div>
             <p className="text-sm text-gray-500 max-w-sm leading-relaxed">
-              Noleggio auto premium in Svizzera. Qualità, trasparenza e servizio
-              personalizzato per ogni esigenza di mobilità.
+              Noleggio auto premium in Svizzera. Qualita, trasparenza e servizio
+              personalizzato per ogni esigenza di mobilita.
             </p>
           </div>
 
@@ -64,9 +64,9 @@ export default function Footer() {
 
         <div className="divider mt-10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} RentCar. Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} LMG RentCar. Tutti i diritti riservati.
           </p>
-          <p className="text-xs text-gray-600">Svizzera 🇨🇭</p>
+          <p className="text-xs text-gray-600">Svizzera</p>
         </div>
       </div>
     </footer>

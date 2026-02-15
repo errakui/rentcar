@@ -13,30 +13,28 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center group">
             <Image
               src="/logo.png"
-              alt="RentCar Logo"
-              width={40}
+              alt="LMG RentCar"
+              width={180}
               height={40}
-              className="transition-transform duration-200 group-hover:scale-105"
+              className="h-8 md:h-10 w-auto brightness-0 invert opacity-90 transition-opacity duration-200 group-hover:opacity-100"
+              priority
             />
-            <span className="text-xl font-bold tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-              RENTCAR
-            </span>
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+              className="text-sm text-gray-400 hover:text-white transition-colors duration-200 font-medium"
             >
               Home
             </Link>
             <Link
               href="/auto"
-              className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+              className="text-sm text-gray-400 hover:text-white transition-colors duration-200 font-medium"
             >
               Le nostre auto
             </Link>
@@ -65,14 +63,14 @@ export default function Header() {
           <nav className="px-4 py-6 space-y-4">
             <Link
               href="/"
-              className="block text-gray-300 hover:text-white transition-colors"
+              className="block text-gray-300 hover:text-white transition-colors font-medium"
               onClick={() => setMobileOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/auto"
-              className="block text-gray-300 hover:text-white transition-colors"
+              className="block text-gray-300 hover:text-white transition-colors font-medium"
               onClick={() => setMobileOpen(false)}
             >
               Le nostre auto
