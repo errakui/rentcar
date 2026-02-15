@@ -299,7 +299,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
         <div className="lg:col-span-3 space-y-6">
           {/* Gallery */}
           <div className="card overflow-hidden">
-            <div className="aspect-[16/10] bg-[#0d0d0d] relative">
+            <div className="aspect-[16/10] bg-[#0d0d0d] relative rounded-t-2xl overflow-hidden">
               {allImages.length > 0 ? (
                 <Image
                   src={allImages[currentImage]?.url || ""}
@@ -316,13 +316,13 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                 <>
                   <button
                     onClick={() => setCurrentImage((p) => (p - 1 + allImages.length) % allImages.length)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 transition-colors"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 rounded-full transition-colors"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => setCurrentImage((p) => (p + 1) % allImages.length)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 rounded-full transition-colors"
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
@@ -367,7 +367,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                 ...(car.powerHp ? [{ icon: Gauge, label: "Potenza", value: `${car.powerHp} HP` }] : []),
                 ...(car.location ? [{ icon: MapPin, label: "Sede", value: car.location.name }] : []),
               ].map((spec, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 bg-white/[0.02] border border-white/[0.04]">
+                <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
                   <spec.icon className="w-4 h-4 text-gray-500 shrink-0" />
                   <div>
                     <p className="text-[10px] text-gray-500 uppercase tracking-wider">{spec.label}</p>
@@ -500,7 +500,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                 <Clock className="w-4 h-4 text-gray-500" /> Chilometraggio
               </h3>
               <div className="space-y-2">
-                <label className="flex items-center gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] transition-colors cursor-pointer">
+                <label className="flex items-center gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] rounded-xl transition-colors cursor-pointer">
                   <input
                     type="radio"
                     name="km"
@@ -513,7 +513,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                     <p className="text-xs text-gray-500">Extra: {formatCHF(rate.extraKmPrice)}/km</p>
                   </div>
                 </label>
-                <label className="flex items-center gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] transition-colors cursor-pointer">
+                <label className="flex items-center gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] rounded-xl transition-colors cursor-pointer">
                   <input
                     type="radio"
                     name="km"
@@ -540,7 +540,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                 {extras.map((extra) => (
                   <label
                     key={extra.id}
-                    className="flex items-center justify-between gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] transition-colors cursor-pointer"
+                    className="flex items-center justify-between gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] rounded-xl transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <input
@@ -573,7 +573,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                 <Shield className="w-4 h-4 text-gray-500" /> Assicurazione
               </h3>
               <div className="space-y-2">
-                <label className="flex items-center gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] transition-colors cursor-pointer">
+                <label className="flex items-center gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] rounded-xl transition-colors cursor-pointer">
                   <input
                     type="radio"
                     name="insurance"
@@ -589,7 +589,7 @@ ${customerEmail ? `Email: ${customerEmail}\n` : ""}${notes ? `Note: ${notes}` : 
                 {insurances.map((ins) => (
                   <label
                     key={ins.id}
-                    className="flex items-center justify-between gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] transition-colors cursor-pointer"
+                    className="flex items-center justify-between gap-3 p-3 border border-white/[0.06] hover:border-white/[0.12] rounded-xl transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <input

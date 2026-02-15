@@ -98,7 +98,7 @@ export default function AdminLeadPage() {
                     <button
                       key={s.value}
                       onClick={() => updateStatus(lead.id, s.value)}
-                      className={`text-xs px-3 py-1.5 border transition-all duration-150 ${
+                      className={`text-xs px-3 py-1.5 border rounded-lg transition-all duration-150 ${
                         lead.status === s.value
                           ? "border-white/20 text-white bg-white/[0.06]"
                           : "border-white/[0.06] text-gray-500 hover:text-white hover:border-white/10"

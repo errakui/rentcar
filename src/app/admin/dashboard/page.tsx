@@ -75,7 +75,7 @@ export default function DashboardPage() {
         ].map((stat) => (
           <div key={stat.label} className="card p-5">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-9 h-9 flex items-center justify-center bg-white/[0.04] border border-white/[0.06]">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.06]">
                 <stat.icon className="w-4 h-4 text-gray-400" />
               </div>
               <span className="text-xs text-gray-500 uppercase tracking-wider">

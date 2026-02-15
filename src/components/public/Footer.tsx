@@ -12,9 +12,9 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="LMG RentCar"
-                width={150}
-                height={34}
-                className="h-7 w-auto brightness-0 invert opacity-70"
+                width={200}
+                height={44}
+                className="h-9 w-auto brightness-0 invert opacity-60"
               />
             </div>
             <p className="text-sm text-gray-500 max-w-sm leading-relaxed">

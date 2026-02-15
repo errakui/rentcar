@@ -126,7 +126,7 @@ export default function AdminLayout({
           {/* User */}
           <div className="border-t border-white/[0.06] p-4">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 bg-white/[0.06] flex items-center justify-center text-xs font-bold">
+              <div className="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center text-xs font-bold">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">

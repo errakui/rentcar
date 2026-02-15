@@ -91,7 +91,7 @@ export default async function HomePage() {
               },
             ].map((f) => (
               <div key={f.title} className="text-center group">
-                <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center border border-white/[0.08] bg-white/[0.02] transition-all duration-200 group-hover:border-white/20 group-hover:bg-white/[0.04]">
+                <div className="w-12 h-12 rounded-2xl mx-auto mb-4 flex items-center justify-center border border-white/[0.08] bg-white/[0.02] transition-all duration-200 group-hover:border-white/20 group-hover:bg-white/[0.04]">
                   <f.icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors duration-200" />
                 </div>
                 <h3 className="text-sm font-semibold mb-2">{f.title}</h3>
@@ -136,7 +136,7 @@ export default async function HomePage() {
                   className="card-hover group block overflow-hidden"
                 >
                   {/* Image */}
-                  <div className="aspect-[16/10] bg-[#0d0d0d] relative overflow-hidden">
+                  <div className="aspect-[16/10] bg-[#0d0d0d] relative overflow-hidden rounded-t-2xl">
                     {car.coverImage ? (
                       <Image
                         src={car.coverImage}

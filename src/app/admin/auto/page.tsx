@@ -67,7 +67,7 @@ export default function AdminAutoPage() {
                   <tr key={car.id} className="hover:bg-white/[0.02] transition-colors">
                     <td className="table-cell">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-8 bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center">
+                        <div className="w-12 h-8 rounded-lg bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center">
                           <Car className="w-4 h-4 text-gray-600" />
                         </div>
                         <div>

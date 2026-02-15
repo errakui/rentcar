@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Syne, Outfit } from "next/font/google";
+import { Urbanist, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const urbanist = Urbanist({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const outfit = Outfit({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="it" className={`${syne.variable} ${outfit.variable}`}>
+    <html lang="it" className={`${urbanist.variable} ${jakarta.variable}`}>
       <body
         className="min-h-screen bg-[#0a0a0a] text-white antialiased"
         style={{ fontFamily: "var(--font-sans), system-ui, sans-serif" }}

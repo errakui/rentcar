@@ -12,14 +12,14 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+          {/* Logo - bello grande e leggibile */}
           <Link href="/" className="flex items-center group">
             <Image
               src="/logo.png"
               alt="LMG RentCar"
-              width={180}
-              height={40}
-              className="h-8 md:h-10 w-auto brightness-0 invert opacity-90 transition-opacity duration-200 group-hover:opacity-100"
+              width={280}
+              height={60}
+              className="h-10 md:h-14 w-auto brightness-0 invert transition-opacity duration-200 group-hover:opacity-80"
               priority
             />
           </Link>
@@ -49,7 +49,7 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
+            className="md:hidden p-2 text-gray-400 hover:text-white transition-colors rounded-lg"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

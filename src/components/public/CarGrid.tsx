@@ -255,7 +255,7 @@ export default function CarGrid({
               href={`/auto/${car.slug}`}
               className="card-hover group block overflow-hidden"
             >
-              <div className="aspect-[16/10] bg-[#0d0d0d] relative overflow-hidden">
+              <div className="aspect-[16/10] bg-[#0d0d0d] relative overflow-hidden rounded-t-2xl">
                 {car.coverImage ? (
                   <Image
                     src={car.coverImage}
