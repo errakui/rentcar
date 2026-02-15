@@ -39,6 +39,11 @@ export default function Footer() {
                   Le nostre auto
                 </Link>
               </li>
+              <li>
+                <Link href="/#prenota" className="text-sm text-gray-500 hover:text-white transition-colors duration-200">
+                  Prenota
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -66,7 +71,15 @@ export default function Footer() {
           <p className="text-xs text-gray-600">
             &copy; {new Date().getFullYear()} LMG RentCar. Tutti i diritti riservati.
           </p>
-          <p className="text-xs text-gray-600">Svizzera</p>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/admin/login"
+              className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+            >
+              Area riservata
+            </Link>
+            <p className="text-xs text-gray-600">Svizzera</p>
+          </div>
         </div>
       </div>
     </footer>

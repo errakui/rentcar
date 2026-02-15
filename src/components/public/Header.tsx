@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Calendar, UserCircle } from "lucide-react";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -12,7 +12,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo - bello grande e leggibile */}
+          {/* Logo */}
           <Link href="/" className="flex items-center group">
             <Image
               src="/logo.png"
@@ -25,7 +25,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/"
               className="text-sm text-gray-400 hover:text-white transition-colors duration-200 font-medium"
@@ -39,11 +39,18 @@ export default function Header() {
               Le nostre auto
             </Link>
             <Link
-              href="/auto"
+              href="/#prenota"
               className="btn-primary text-sm flex items-center gap-2"
             >
-              <Phone className="w-4 h-4" />
+              <Calendar className="w-4 h-4" />
               Prenota ora
+            </Link>
+            <Link
+              href="/admin/login"
+              className="text-gray-500 hover:text-white transition-colors duration-200"
+              title="Area riservata"
+            >
+              <UserCircle className="w-5 h-5" />
             </Link>
           </nav>
 
@@ -76,11 +83,19 @@ export default function Header() {
               Le nostre auto
             </Link>
             <Link
-              href="/auto"
+              href="/#prenota"
               className="btn-primary block text-center mt-4"
               onClick={() => setMobileOpen(false)}
             >
               Prenota ora
+            </Link>
+            <Link
+              href="/admin/login"
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors pt-2"
+              onClick={() => setMobileOpen(false)}
+            >
+              <UserCircle className="w-4 h-4" />
+              Area riservata
             </Link>
           </nav>
         </div>

@@ -12,9 +12,10 @@ import {
   Cog,
 } from "lucide-react";
 import Image from "next/image";
+import QuickBooking from "@/components/public/QuickBooking";
 
 async function getFeaturedCars() {
-  const cars = await prisma.car.findMany({
+  return prisma.car.findMany({
     where: { status: "ACTIVE" },
     include: {
       ratePlans: { where: { active: true }, take: 1, orderBy: { dailyPrice: "asc" } },
@@ -23,25 +24,28 @@ async function getFeaturedCars() {
     take: 6,
     orderBy: { createdAt: "desc" },
   });
-  return cars;
+}
+
+async function getLocations() {
+  return prisma.location.findMany({ where: { active: true }, orderBy: { name: "asc" } });
 }
 
 export default async function HomePage() {
-  const cars = await getFeaturedCars();
+  const [cars, locations] = await Promise.all([getFeaturedCars(), getLocations()]);
 
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/95 to-[#0a0a0a]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
           <div className="animate-fadeIn">
             <p className="text-sm uppercase tracking-[0.3em] text-gray-500 mb-6">
-              Noleggio Premium · Svizzera
+              Noleggio Premium &middot; Svizzera
             </p>
-            <h1 className="heading-1 mb-6 leading-[1.1]">
+            <h1 className="heading-1 mb-6">
               L&apos;auto perfetta
               <br />
               <span className="text-gray-500">per ogni viaggio</span>
@@ -52,17 +56,20 @@ export default async function HomePage() {
               zero sorprese.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/auto" className="btn-primary text-base inline-flex items-center gap-2 justify-center">
-                Scopri le auto
+              <Link href="/#prenota" className="btn-primary text-base inline-flex items-center gap-2 justify-center">
+                Prenota ora
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/auto" className="btn-secondary text-base inline-flex items-center gap-2 justify-center">
-                Calcola preventivo
+                Esplora la flotta
               </Link>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Quick Booking */}
+      <QuickBooking locations={JSON.parse(JSON.stringify(locations))} />
 
       {/* Features */}
       <section className="py-20 border-t border-white/[0.04]">
@@ -72,7 +79,7 @@ export default async function HomePage() {
               {
                 icon: Car,
                 title: "Flotta selezionata",
-                desc: "Auto di qualità, dalla city car al SUV luxury",
+                desc: "Auto di qualita, dalla city car al SUV luxury",
               },
               {
                 icon: Shield,
@@ -135,7 +142,6 @@ export default async function HomePage() {
                   href={`/auto/${car.slug}`}
                   className="card-hover group block overflow-hidden"
                 >
-                  {/* Image */}
                   <div className="aspect-[16/10] bg-[#0d0d0d] relative overflow-hidden rounded-t-2xl">
                     {car.coverImage ? (
                       <Image
@@ -156,7 +162,6 @@ export default async function HomePage() {
                     </div>
                   </div>
 
-                  {/* Info */}
                   <div className="p-5">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -170,7 +175,6 @@ export default async function HomePage() {
                       <span className="text-xs text-gray-500">{car.year}</span>
                     </div>
 
-                    {/* Specs */}
                     <div className="flex flex-wrap gap-3 mb-4">
                       <span className="flex items-center gap-1 text-xs text-gray-500">
                         <Users className="w-3 h-3" /> {car.seats}
@@ -183,7 +187,6 @@ export default async function HomePage() {
                       </span>
                     </div>
 
-                    {/* Price */}
                     <div className="divider pt-3 flex items-center justify-between">
                       {car.ratePlans[0] ? (
                         <div>
@@ -221,8 +224,8 @@ export default async function HomePage() {
             Scegli la tua auto, calcola il preventivo e conferma in pochi
             click direttamente su WhatsApp.
           </p>
-          <Link href="/auto" className="btn-primary inline-flex items-center gap-2 text-base">
-            Trova la tua auto <ArrowRight className="w-4 h-4" />
+          <Link href="/#prenota" className="btn-primary inline-flex items-center gap-2 text-base">
+            Prenota adesso <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
