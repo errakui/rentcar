@@ -1,105 +1,79 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { useState } from "react";
-import { Menu, X, Calendar, UserCircle } from "lucide-react";
+import { Calendar, UserCircle } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const t = useTranslations("common");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+        {/* Mobile: lang sx, logo centro, niente dx */}
+        <div className="flex md:hidden items-center justify-between h-14">
+          <div className="w-10">
+            <LanguageSwitcher />
+          </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="LMG RentCar"
+              width={980}
+              height={76}
+              className="h-3.5 w-auto"
+              priority
+            />
+          </Link>
+          <div className="w-10" />
+        </div>
+
+        {/* Desktop: logo + nav + lang */}
+        <div className="hidden md:flex items-center justify-between h-20">
           <Link href="/" className="flex items-center group">
             <Image
               src="/logo.png"
               alt="LMG RentCar"
               width={980}
               height={76}
-              className="h-4 md:h-[22px] w-auto transition-opacity duration-200 group-hover:opacity-80"
+              className="h-[22px] w-auto transition-opacity duration-200 group-hover:opacity-80"
               priority
             />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
             <Link
               href="/"
               className="text-sm text-gray-400 hover:text-white transition-colors duration-200 font-medium"
             >
-              Home
+              {t("home")}
             </Link>
             <Link
               href="/auto"
               className="text-sm text-gray-400 hover:text-white transition-colors duration-200 font-medium"
             >
-              Le nostre auto
+              {t("fleet")}
             </Link>
             <Link
-              href="/#prenota"
+              href="/auto"
               className="btn-primary text-sm flex items-center gap-2"
             >
               <Calendar className="w-4 h-4" />
-              Prenota ora
+              {t("bookNow")}
             </Link>
+            <LanguageSwitcher />
             <Link
               href="/admin/login"
               className="text-gray-500 hover:text-white transition-colors duration-200"
-              title="Area riservata"
+              title={t("login")}
             >
               <UserCircle className="w-5 h-5" />
             </Link>
           </nav>
-
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 text-gray-400 hover:text-white transition-colors rounded-lg"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden border-t border-white/[0.06] bg-[#0a0a0a]/95 backdrop-blur-md animate-fadeIn">
-          <nav className="px-4 py-6 space-y-4">
-            <Link
-              href="/"
-              className="block text-gray-300 hover:text-white transition-colors font-medium"
-              onClick={() => setMobileOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              href="/auto"
-              className="block text-gray-300 hover:text-white transition-colors font-medium"
-              onClick={() => setMobileOpen(false)}
-            >
-              Le nostre auto
-            </Link>
-            <Link
-              href="/#prenota"
-              className="btn-primary block text-center mt-4"
-              onClick={() => setMobileOpen(false)}
-            >
-              Prenota ora
-            </Link>
-            <Link
-              href="/admin/login"
-              className="flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors pt-2"
-              onClick={() => setMobileOpen(false)}
-            >
-              <UserCircle className="w-4 h-4" />
-              Area riservata
-            </Link>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

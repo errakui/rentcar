@@ -4,7 +4,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import { slugify } from "@/lib/utils";
 
 export async function GET(request: NextRequest) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const cars = await prisma.car.findMany({
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   try {

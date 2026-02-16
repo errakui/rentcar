@@ -6,7 +6,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const { id } = await params;
@@ -28,7 +28,7 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const { id } = await params;
@@ -85,7 +85,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const { id } = await params;

@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin-auth";
 
 export async function GET(request: NextRequest) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const ratePlans = await prisma.ratePlan.findMany({
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const user = requireAdmin(request);
+  const user = await requireAdmin(request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const body = await request.json();

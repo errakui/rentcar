@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/admin-auth";
 
 export async function GET(request: NextRequest) {
-  const user = requireRole(request, "ADMIN");
+  const user = await requireRole("ADMIN", request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const settings = await prisma.setting.findMany({ orderBy: { key: "asc" } });
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const user = requireRole(request, "ADMIN");
+  const user = await requireRole("ADMIN", request);
   if (!user) return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
 
   const body = await request.json();

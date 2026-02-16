@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
+import NextLink from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import {
   LayoutDashboard,
   Car,
@@ -15,10 +16,12 @@ import {
   ClipboardList,
   LogOut,
   Menu,
-  X,
   ChevronRight,
   Shield,
+  CalendarOff,
+  FileText,
 } from "lucide-react";
+import LanguageSwitcher from "@/components/public/LanguageSwitcher";
 
 interface AdminUser {
   id: string;
@@ -27,22 +30,22 @@ interface AdminUser {
   role: string;
 }
 
-const NAV_ITEMS = [
-  { href: "/admin/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/admin/auto", icon: Car, label: "Auto" },
-  { href: "/admin/tariffe", icon: DollarSign, label: "Tariffe" },
-  { href: "/admin/extra", icon: Package, label: "Extra & Assicurazioni" },
-  { href: "/admin/sedi", icon: MapPin, label: "Sedi" },
-  { href: "/admin/lead", icon: MessageSquare, label: "Richieste" },
-  { href: "/admin/impostazioni", icon: Settings, label: "Impostazioni" },
-  { href: "/admin/log", icon: ClipboardList, label: "Log attività" },
-];
+const NAV_KEYS = [
+  { href: "/admin/dashboard", icon: LayoutDashboard, key: "dashboard" },
+  { href: "/admin/auto", icon: Car, key: "cars" },
+  { href: "/admin/tariffe", icon: DollarSign, key: "rates" },
+  { href: "/admin/extra", icon: Package, key: "extras" },
+  { href: "/admin/assicurazioni", icon: Shield, key: "insurance" },
+  { href: "/admin/disponibilita", icon: CalendarOff, key: "availability" },
+  { href: "/admin/sedi", icon: MapPin, key: "locations" },
+  { href: "/admin/lead", icon: MessageSquare, key: "requests" },
+  { href: "/admin/contenuti", icon: FileText, key: "content" },
+  { href: "/admin/impostazioni", icon: Settings, key: "settings" },
+  { href: "/admin/log", icon: ClipboardList, key: "activityLog" },
+] as const;
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("admin");
   const router = useRouter();
   const pathname = usePathname();
   const [user, setUser] = useState<AdminUser | null>(null);
@@ -55,13 +58,8 @@ export default function AdminLayout({
         if (!res.ok) throw new Error("Not authenticated");
         return res.json();
       })
-      .then((data) => {
-        setUser(data.user);
-        setLoading(false);
-      })
-      .catch(() => {
-        router.push("/admin/login");
-      });
+      .then((data) => { setUser(data.user); setLoading(false); })
+      .catch(() => { router.push("/admin/login"); });
   }, [router]);
 
   const handleLogout = async () => {
@@ -81,49 +79,29 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex">
-      {/* Sidebar */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0d0d0d] border-r border-white/[0.06] transform transition-transform duration-200 lg:translate-x-0 lg:static lg:inset-auto ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#0d0d0d] border-r border-white/[0.06] transform transition-transform duration-200 lg:translate-x-0 lg:static lg:inset-auto ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="flex flex-col h-full">
-          {/* Logo */}
           <div className="h-16 flex items-center justify-between px-5 border-b border-white/[0.06]">
-            <Image
-              src="/logo.png"
-              alt="LMG RentCar"
-              width={980}
-              height={76}
-              className="h-[10px] w-auto"
-            />
+            <Image src="/logo.png" alt="LMG RentCar" width={980} height={76} className="h-[10px] w-auto" />
             <span className="badge text-[9px]">Admin</span>
           </div>
-
-          {/* Nav */}
           <nav className="flex-1 py-4 px-3 space-y-0.5 overflow-y-auto">
-            {NAV_ITEMS.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(item.href + "/");
+            {NAV_KEYS.map((item) => {
+              const active = pathname.includes(item.href);
               return (
-                <Link
+                <NextLink
                   key={item.href}
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 text-sm transition-all duration-150 ${
-                    active
-                      ? "text-white bg-white/[0.06] border-l-2 border-white"
-                      : "text-gray-500 hover:text-gray-300 hover:bg-white/[0.03] border-l-2 border-transparent"
-                  }`}
+                  className={`flex items-center gap-3 px-3 py-2.5 text-sm transition-all duration-150 ${active ? "text-white bg-white/[0.06] border-l-2 border-white" : "text-gray-500 hover:text-gray-300 hover:bg-white/[0.03] border-l-2 border-transparent"}`}
                 >
                   <item.icon className="w-4 h-4 shrink-0" />
-                  {item.label}
+                  {t(item.key)}
                   {active && <ChevronRight className="w-3 h-3 ml-auto" />}
-                </Link>
+                </NextLink>
               );
             })}
           </nav>
-
-          {/* User */}
           <div className="border-t border-white/[0.06] p-4">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center text-xs font-bold">
@@ -136,41 +114,26 @@ export default function AdminLayout({
                 </p>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center gap-2 text-xs text-gray-500 hover:text-red-400 transition-colors py-1.5"
-            >
-              <LogOut className="w-3 h-3" /> Disconnetti
+            <button onClick={handleLogout} className="w-full flex items-center gap-2 text-xs text-gray-500 hover:text-red-400 transition-colors py-1.5">
+              <LogOut className="w-3 h-3" /> {t("logout")}
             </button>
           </div>
         </div>
       </aside>
 
-      {/* Overlay */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+      {sidebarOpen && <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
 
-      {/* Main */}
       <div className="flex-1 flex flex-col min-h-screen">
-        {/* Top bar */}
         <header className="h-16 border-b border-white/[0.06] flex items-center px-4 lg:px-8 gap-4 bg-[#0a0a0a]/80 backdrop-blur-md sticky top-0 z-30">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-2 text-gray-400 hover:text-white"
-          >
+          <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 text-gray-400 hover:text-white">
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex-1" />
-          <Link href="/" className="text-xs text-gray-500 hover:text-white transition-colors">
-            Vai al sito →
-          </Link>
+          <LanguageSwitcher />
+          <NextLink href="/" className="text-xs text-gray-500 hover:text-white transition-colors">
+            {t("goToSite")} →
+          </NextLink>
         </header>
-
-        {/* Content */}
         <main className="flex-1 p-4 lg:p-8">{children}</main>
       </div>
     </div>

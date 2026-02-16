@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#0a0a0a"/>
+  <text x="256" y="270" font-family="system-ui, -apple-system, 'Helvetica Neue', sans-serif" font-weight="800" font-size="165" fill="white" text-anchor="middle" letter-spacing="-4">LMG</text>
+  <rect x="112" y="297" width="288" height="2" rx="1" fill="rgba(255,255,255,0.3)"/>
+  <text x="256" y="375" font-family="system-ui, -apple-system, 'Helvetica Neue', sans-serif" font-weight="700" font-size="62" fill="rgba(255,255,255,0.85)" text-anchor="middle" letter-spacing="6">RENTCAR</text>
+</svg>
